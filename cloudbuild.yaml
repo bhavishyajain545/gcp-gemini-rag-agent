@@ -1,0 +1,23 @@
+# Build and push the agent image with a dedicated, least-privilege build service account.
+# Usage (from repo root):
+#   gcloud builds submit --config cloudbuild.yaml --substitutions=_TAG=v1 .
+substitutions:
+  _REGION: us-central1
+  _REPO: agents
+  _IMAGE: ops-agent
+  _TAG: v1
+
+steps:
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - build
+      - -t
+      - ${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_REPO}/${_IMAGE}:${_TAG}
+      - app
+
+images:
+  - ${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_REPO}/${_IMAGE}:${_TAG}
+
+serviceAccount: projects/${PROJECT_ID}/serviceAccounts/sa-build@${PROJECT_ID}.iam.gserviceaccount.com
+options:
+  logging: CLOUD_LOGGING_ONLY

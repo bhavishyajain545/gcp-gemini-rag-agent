@@ -1,0 +1,119 @@
+1
+00:00:00,301 --> 00:00:06,054
+This is a DevOps on-call assistant built with Google's Agent Development Kit and Gemini on Vertex AI.
+
+2
+00:00:06,054 --> 00:00:15,794
+It answers operational questions from our runbooks using retrieval-augmented generation, and it can act: opening incident tickets in Firestore and checking service health.
+
+3
+00:00:15,794 --> 00:00:22,117
+It runs on Cloud Run as a dedicated service account with no keys, and everything is provisioned with Terraform.
+
+4
+00:00:23,301 --> 00:00:25,080
+First, the security posture.
+
+5
+00:00:25,080 --> 00:00:32,705
+The Cloud Run service is not public: an unauthenticated request gets a 403, and the IAM policy has no all-users binding.
+
+6
+00:00:32,705 --> 00:00:42,935
+The runtime identity is a dedicated service account with just two project roles, Vertex AI user and Datastore user, plus read-only access on the runbooks bucket.
+
+7
+00:00:42,935 --> 00:00:45,667
+There are no service account keys anywhere.
+
+8
+00:00:45,667 --> 00:00:51,957
+Locally I reach the service through gcloud run services proxy, which injects my own identity token.
+
+9
+00:00:53,331 --> 00:00:56,849
+Now the agent itself, in the ADK web UI served by Cloud Run.
+
+10
+00:00:56,849 --> 00:00:59,371
+I ask how to recover CouchDB after a crash.
+
+11
+00:00:59,371 --> 00:01:07,228
+The agent calls search runbooks, which embeds the question with Vertex AI and runs a cosine similarity search over the runbook chunks.
+
+12
+00:01:07,228 --> 00:01:13,854
+It then reads the best-matching runbook in full and answers with the exact ordered steps, citing the source file.
+
+13
+00:01:13,854 --> 00:01:20,715
+It is instructed to answer only from the runbooks, so it will say so when something is not covered rather than guess.
+
+14
+00:01:26,885 --> 00:01:36,201
+The left panel shows the event and trace view: the model's function call to search runbooks, the tool result, the read runbook call, and the final response.
+
+15
+00:01:36,201 --> 00:01:42,053
+This is the same observability you get from ADK locally, now running against the deployed service.
+
+16
+00:01:43,225 --> 00:01:44,246
+Next, an action.
+
+17
+00:01:44,246 --> 00:01:47,693
+I ask the agent to open a P1 ticket for this incident.
+
+18
+00:01:47,693 --> 00:02:01,927
+Gemini fills the tool arguments from the conversation, a title, the severity, and a summary, and calls create incident ticket, which writes a document to Firestore using the service account, with no credentials in the code.
+
+19
+00:02:01,927 --> 00:02:04,033
+The agent confirms the ticket id.
+
+20
+00:02:06,394 --> 00:02:08,539
+The agent can chain tools in one turn.
+
+21
+00:02:08,539 --> 00:02:19,378
+Here it checks the queue processor through the status tool, and then lists the open tickets from Firestore, newest first, using a composite index that Terraform created alongside the database.
+
+22
+00:02:21,760 --> 00:02:24,496
+Let's verify that write in the Firestore console.
+
+23
+00:02:30,670 --> 00:02:39,046
+The tickets collection shows the new document with the fields the agent wrote: title, severity, summary, status and a server timestamp.
+
+24
+00:02:40,921 --> 00:02:44,977
+And finally the Cloud Run service itself, on its security tab.
+
+25
+00:02:46,152 --> 00:02:53,928
+It confirms what we saw on the command line: authentication is required, and the service identity is the dedicated sa ops agent service account.
+
+26
+00:02:53,928 --> 00:02:55,440
+No keys were created for it.
+
+27
+00:02:57,308 --> 00:03:10,169
+Everything you saw is defined in Terraform: APIs, the service account and its roles, the private bucket with the runbooks, Firestore and its index, Artifact Registry and the Cloud Run service.
+
+28
+00:03:10,169 --> 00:03:15,327
+The image is built by Cloud Build with its own least-privilege build account.
+
+29
+00:03:15,327 --> 00:03:21,624
+The code, Terraform and this recording are in the GitHub repository linked in the description.
+
+30
+00:03:21,624 --> 00:03:22,964
+Thanks for watching.

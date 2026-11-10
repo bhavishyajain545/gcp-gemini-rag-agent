@@ -1,0 +1,6 @@
+google-adk==2.14.0
+google-genai==2.34.0
+google-cloud-firestore==2.34.1
+google-cloud-storage==3.17.1
+numpy==2.5.4
+uvicorn==0.54.0

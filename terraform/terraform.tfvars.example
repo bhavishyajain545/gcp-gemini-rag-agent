@@ -1,0 +1,6 @@
+project_id      = "bj-gemini-agent"
+region          = "us-central1"
+vertex_location = "global"
+gemini_model    = "gemini-3.8-flash"
+embedding_model = "gemini-embedding-001"
+image           = "us-central1-docker.pkg.dev/bj-gemini-agent/agents/ops-agent:v1"

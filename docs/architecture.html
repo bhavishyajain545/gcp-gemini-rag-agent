@@ -1,0 +1,61 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Architecture: Gemini RAG Ops Agent</title>
+<style>
+  body{margin:0;background:#ffffff;font-family:Inter,Segoe UI,Arial,sans-serif;color:#1f2933}
+  .canvas{width:1400px;height:800px;position:relative;padding:36px;box-sizing:border-box}
+  h1{font-size:26px;margin:0 0 4px}
+  .sub{color:#5f6b7a;font-size:15px;margin-bottom:24px}
+  .box{position:absolute;border-radius:12px;padding:14px 16px;box-sizing:border-box;border:2px solid;background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.06)}
+  .box b{display:block;font-size:16px;margin-bottom:4px}
+  .box span{font-size:13px;color:#5f6b7a;line-height:1.35}
+  .user{border-color:#5f6b7a}
+  .run{border-color:#4285f4;background:#eef4ff}
+  .ai{border-color:#9334e6;background:#f6efff}
+  .data{border-color:#0f9d58;background:#ebf8f0}
+  .ops{border-color:#f4b400;background:#fff8e1}
+  .zone{position:absolute;border:2px dashed #c3cbd5;border-radius:16px}
+  .zone label{position:absolute;top:-12px;left:16px;background:#fff;padding:0 8px;font-size:13px;color:#5f6b7a;font-weight:600}
+  svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+  .lbl{font-size:12px;fill:#5f6b7a}
+</style></head>
+<body><div class="canvas">
+  <h1>DevOps Ops Agent: Gemini + ADK + RAG on Cloud Run</h1>
+  <div class="sub">Project bj-gemini-agent · Terraform-provisioned · keyless, least-privilege IAM</div>
+
+  <div class="zone" style="left:300px;top:110px;width:1060px;height:640px"><label>Google Cloud project: bj-gemini-agent</label></div>
+
+  <div class="box user" style="left:40px;top:330px;width:200px"><b>Engineer</b><span>Browser → ADK web UI<br>via <code>gcloud run services proxy</code><br>(no public access)</span></div>
+
+  <div class="box run" style="left:360px;top:290px;width:300px"><b>Cloud Run: ops-agent</b><span>FastAPI app from <code>google-adk</code><br>min 0 / max 2 instances, scale to zero<br>runs as <b>sa-ops-agent</b> (no keys)<br>Tools: search_runbooks · read_runbook ·<br>create_incident_ticket · list_open_tickets ·<br>get_service_status</span></div>
+
+  <div class="box ai" style="left:800px;top:150px;width:300px"><b>Vertex AI: Gemini 3.8 Flash</b><span>reasoning + function calling<br>location: global</span></div>
+  <div class="box ai" style="left:800px;top:290px;width:300px"><b>Vertex AI: gemini-embedding-001</b><span>embeds runbook chunks (RETRIEVAL_DOCUMENT)<br>and queries (RETRIEVAL_QUERY), 3072-dim</span></div>
+  <div class="box data" style="left:800px;top:430px;width:300px"><b>Cloud Storage: runbooks bucket</b><span>runbooks/*.md · uniform access ·<br>public access prevention · SA = objectViewer</span></div>
+  <div class="box data" style="left:800px;top:570px;width:300px"><b>Firestore (native)</b><span>collection <code>tickets</code><br>composite index status + created_at<br>SA = datastore.user</span></div>
+
+  <div class="box ops" style="left:1150px;top:150px;width:180px"><b>Artifact Registry</b><span>agents/ops-agent:v1<br>built by Cloud Build (sa-build)</span></div>
+  <div class="box ops" style="left:40px;top:590px;width:200px"><b>Cloud Logging + Monitoring</b><span>request logs, tool traces,<br>Cloud Run metrics</span></div>
+
+  <div class="box" style="left:360px;top:590px;width:300px;border-color:#c3cbd5"><b>In-memory RAG index</b><span>built on first query from the bucket:<br>chunk 1000 chars / overlap 200 →<br>numpy cosine top-4 → cite source file</span></div>
+
+  <svg>
+    <defs><marker id="a" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#5f6b7a"/></marker></defs>
+    <g stroke="#5f6b7a" stroke-width="2" fill="none" marker-end="url(#a)">
+      <path d="M240,385 L360,385"/>
+      <path d="M660,330 C730,330 730,200 800,200"/>
+      <path d="M660,355 C730,355 730,330 800,330"/>
+      <path d="M660,395 C730,395 730,470 800,470"/>
+      <path d="M660,420 C730,420 730,610 800,610"/>
+      <path d="M510,445 L510,590"/>
+      <path d="M560,290 C560,120 1000,110 1150,180" stroke-dasharray="6 4"/>
+      <path d="M360,430 C300,430 300,620 240,620" stroke-dasharray="6 4"/>
+    </g>
+    <text class="lbl" x="262" y="372">HTTPS + IAM</text>
+    <text class="lbl" x="672" y="185">generate + tool calls</text>
+    <text class="lbl" x="745" y="322">embed</text>
+    <text class="lbl" x="745" y="492">read .md</text>
+    <text class="lbl" x="745" y="632">read / write</text>
+    <text class="lbl" x="580" y="150">image pulled from</text>
+    <text class="lbl" x="262" y="520">logs + metrics</text>
+  </svg>
+</div></body></html>
