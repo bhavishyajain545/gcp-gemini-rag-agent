@@ -6,6 +6,7 @@ A DevOps on-call assistant built with Google's **Agent Development Kit (ADK)** a
 
 - Demo video: [`demo/demo.mp4`](demo/demo.mp4) · captions [`demo/captions.srt`](demo/captions.srt) · transcript [`demo/transcript.md`](demo/transcript.md)
 - Project: `bj-gemini-agent` · region `us-central1` · Gemini served from the `global` Vertex AI location
+- **Rebuild from scratch, step by step (incl. org-policy and teardown): [`REBUILD.md`](REBUILD.md)**
 
 ## What it does
 
