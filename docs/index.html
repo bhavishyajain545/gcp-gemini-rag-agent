@@ -64,7 +64,7 @@
   .steps li b{display:block;margin-bottom:4px}
   .check{list-style:none;padding:0;margin:0;display:grid;gap:8px}
   .check li{padding-left:28px;position:relative}
-  .check li::before{content:"Ã¢Å“â€œ";position:absolute;left:0;top:0;color:var(--green);font-weight:700}
+  .check li::before{content:"✓";position:absolute;left:0;top:0;color:var(--green);font-weight:700}
   .seq{display:grid;gap:0}
   .seq .row{display:grid;grid-template-columns:190px 1fr;gap:12px;padding:10px 0;border-bottom:1px dashed var(--line);align-items:start}
   .seq .row:last-child{border-bottom:0}
@@ -82,7 +82,7 @@
 <body>
 
 <header class="wrap">
-  <p class="eyebrow">Google Cloud portfolio Ã‚Â· Project 1 of 3</p>
+  <p class="eyebrow">Google Cloud portfolio · Project 1 of 3</p>
   <h1>DevOps on-call agent with Gemini, ADK and RAG on Cloud Run</h1>
   <p class="lede">An internal assistant that answers from the team's runbooks with citations, opens incident tickets in Firestore and reports service health. Deployed on Cloud Run with a keyless, least-privilege identity and provisioned end-to-end with Terraform.</p>
   <div class="pills">
@@ -101,20 +101,20 @@
 
 <section id="demo"><div class="wrap">
   <h2>Demo</h2>
-  <p class="sub">Narrated walkthrough: security posture Ã¢â€ â€™ runbook question with citation Ã¢â€ â€™ tool trace Ã¢â€ â€™ ticket creation Ã¢â€ â€™ Firestore console Ã¢â€ â€™ Terraform.</p>
+  <p class="sub">Narrated walkthrough: security posture → runbook question with citation → tool trace → ticket creation → Firestore console → Terraform.</p>
   <video class="video" controls preload="metadata" poster="architecture.png">
     <source src="https://github.com/bhavishyajain545/gcp-gemini-rag-agent/raw/main/demo/demo.mp4" type="video/mp4">
     <track kind="captions" src="https://github.com/bhavishyajain545/gcp-gemini-rag-agent/raw/main/demo/captions.srt" srclang="en" label="English">
     Your browser does not support the video tag. <a href="https://github.com/bhavishyajain545/gcp-gemini-rag-agent/raw/main/demo/demo.mp4">Download demo.mp4</a>.
   </video>
-  <p class="sub" style="margin-top:10px">Transcript: <a href="https://github.com/bhavishyajain545/gcp-gemini-rag-agent/blob/main/demo/transcript.md">demo/transcript.md</a> Ã‚Â· Captions: <a href="https://github.com/bhavishyajain545/gcp-gemini-rag-agent/blob/main/demo/captions.srt">demo/captions.srt</a>. Narration is generated with Cloud Text-to-Speech (Chirp 3 HD); the screen capture is driven by Playwright so every run is reproducible.</p>
+  <p class="sub" style="margin-top:10px">Transcript: <a href="https://github.com/bhavishyajain545/gcp-gemini-rag-agent/blob/main/demo/transcript.md">demo/transcript.md</a> · Captions: <a href="https://github.com/bhavishyajain545/gcp-gemini-rag-agent/blob/main/demo/captions.srt">demo/captions.srt</a>. Narration is generated with Cloud Text-to-Speech (Chirp 3 HD); the screen capture is driven by Playwright so every run is reproducible.</p>
 </div></section>
 
 <section id="architecture"><div class="wrap">
   <h2>Architecture</h2>
   <p class="sub">One Cloud Run service, four managed backends, one service account.</p>
   <figure>
-    <img src="architecture.png" alt="Architecture: engineer Ã¢â€ â€™ Cloud Run ops-agent Ã¢â€ â€™ Vertex AI Gemini and embeddings, Cloud Storage runbooks, Firestore tickets; image from Artifact Registry; logs to Cloud Logging">
+    <img src="architecture.png" alt="Architecture: engineer → Cloud Run ops-agent → Vertex AI Gemini and embeddings, Cloud Storage runbooks, Firestore tickets; image from Artifact Registry; logs to Cloud Logging">
     <figcaption>Everything inside the dashed box is created by <code>terraform apply</code>. The agent never holds a credential: Cloud Run attaches <code>sa-ops-agent</code> and the Google client libraries pick it up.</figcaption>
   </figure>
   <div class="grid" style="margin-top:16px">
@@ -127,12 +127,12 @@
 
 <section id="flow"><div class="wrap">
   <h2>Request flow</h2>
-  <p class="sub">What happens when an engineer asks Ã¢â‚¬Å“CouchDB crashed on prod, what are the recovery steps?Ã¢â‚¬Â</p>
+  <p class="sub">What happens when an engineer asks “CouchDB crashed on prod, what are the recovery steps?”</p>
   <figure>
     <svg class="flow" viewBox="0 0 1040 330" role="img" aria-label="Sequence: user to Cloud Run, Cloud Run to Gemini, Gemini requests search_runbooks, Cloud Run embeds the query and searches, then read_runbook, then Gemini writes the answer with citation">
       <defs><marker id="ar" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#5b6775"/></marker></defs>
       <g font-size="13" font-weight="600" fill="currentColor" text-anchor="middle">
-        <text x="90" y="24">Engineer</text><text x="340" y="24">Cloud Run Ã‚Â· ADK</text><text x="600" y="24">Gemini 3.8 Flash</text><text x="840" y="24">Embeddings + GCS</text>
+        <text x="90" y="24">Engineer</text><text x="340" y="24">Cloud Run · ADK</text><text x="600" y="24">Gemini 3.8 Flash</text><text x="840" y="24">Embeddings + GCS</text>
       </g>
       <g stroke="#9aa7b4" stroke-dasharray="4 4"><line x1="90" y1="34" x2="90" y2="320"/><line x1="340" y1="34" x2="340" y2="320"/><line x1="600" y1="34" x2="600" y2="320"/><line x1="840" y1="34" x2="840" y2="320"/></g>
       <g stroke="#5b6775" stroke-width="1.6" fill="none" marker-end="url(#ar)">
@@ -149,14 +149,14 @@
         <text x="215" y="54" text-anchor="middle">POST /run_sse (IAM token via proxy)</text>
         <text x="470" y="89" text-anchor="middle">prompt + tool schemas</text>
         <text x="470" y="119" text-anchor="middle">function_call: search_runbooks(query)</text>
-        <text x="590" y="154" text-anchor="middle">embed query (RETRIEVAL_QUERY) Ã‚Â· cosine vs 18 chunks (index built once from gs://Ã¢â‚¬Â¦/runbooks)</text>
+        <text x="590" y="154" text-anchor="middle">embed query (RETRIEVAL_QUERY) · cosine vs 18 chunks (index built once from gs://…/runbooks)</text>
         <text x="590" y="184" text-anchor="middle">top-4 chunks with source + score</text>
-        <text x="470" y="214" text-anchor="middle">tool result Ã¢â€ â€™ function_call: read_runbook("couchdb-recovery.md")</text>
+        <text x="470" y="214" text-anchor="middle">tool result → function_call: read_runbook("couchdb-recovery.md")</text>
         <text x="470" y="249" text-anchor="middle">final answer: ordered steps + (source: couchdb-recovery.md)</text>
         <text x="215" y="294" text-anchor="middle">streamed events: tool calls, results, text</text>
       </g>
     </svg>
-    <figcaption>Two tool rounds per question. The instruction forces <em>search once Ã¢â€ â€™ read the best source Ã¢â€ â€™ answer only from it</em>; an earlier version without <code>read_runbook</code> made the model search ten times to reassemble a procedure from 800-character chunks.</figcaption>
+    <figcaption>Two tool rounds per question. The instruction forces <em>search once → read the best source → answer only from it</em>; an earlier version without <code>read_runbook</code> made the model search ten times to reassemble a procedure from 800-character chunks.</figcaption>
   </figure>
 </div></section>
 
@@ -171,11 +171,11 @@
       </g>
       <g stroke="#5b6775" stroke-width="1.6" marker-end="url(#ar2)"><line x1="160" y1="70" x2="188" y2="70"/><line x1="340" y1="70" x2="368" y2="70"/><line x1="520" y1="70" x2="548" y2="70"/><line x1="700" y1="70" x2="728" y2="70"/><line x1="880" y1="70" x2="908" y2="70"/></g>
       <g font-size="13" fill="currentColor" text-anchor="middle">
-        <text x="85" y="62" font-weight="600">Load</text><text x="85" y="82">gs://Ã¢â‚¬Â¦/runbooks/*.md</text><text x="85" y="98" font-size="11">(local folder in dev)</text>
+        <text x="85" y="62" font-weight="600">Load</text><text x="85" y="82">gs://…/runbooks/*.md</text><text x="85" y="98" font-size="11">(local folder in dev)</text>
         <text x="265" y="62" font-weight="600">Chunk</text><text x="265" y="82">1000 chars, 200 overlap</text><text x="265" y="98" font-size="11">snap to newline</text>
         <text x="445" y="62" font-weight="600">Embed</text><text x="445" y="82">gemini-embedding-001</text><text x="445" y="98" font-size="11">RETRIEVAL_DOCUMENT, batches of 20</text>
         <text x="625" y="62" font-weight="600">Index</text><text x="625" y="82">numpy matrix, L2-normalised</text><text x="625" y="98" font-size="11">built once per instance</text>
-        <text x="805" y="62" font-weight="600">Search</text><text x="805" y="82">cosine Ã‚Â· top-4</text><text x="805" y="98" font-size="11">query = RETRIEVAL_QUERY</text>
+        <text x="805" y="62" font-weight="600">Search</text><text x="805" y="82">cosine · top-4</text><text x="805" y="98" font-size="11">query = RETRIEVAL_QUERY</text>
         <text x="970" y="62" font-weight="600">Read</text><text x="970" y="82">full runbook</text><text x="970" y="98" font-size="11">cite source</text>
       </g>
     </svg>
@@ -184,7 +184,7 @@
   <div class="grid">
     <div class="card"><b>Chunk size 1000 / overlap 200</b><p>Runbook steps are 1-3 lines; a 1000-character window keeps a whole section together, the overlap keeps numbered lists from splitting mid-step.</p></div>
     <div class="card"><b>Search, then read</b><p>Retrieval decides <em>which</em> runbook; the full document gives the model complete, ordered steps. Two cheap calls beat ten partial ones.</p></div>
-    <div class="card"><b>In-memory index</b><p>Five runbooks Ã¢â€ â€™ 18 chunks Ã¢â€ â€™ a 18Ãƒâ€”3072 matrix. Rebuilt lazily on the first query per Cloud Run instance; no database to run or pay for.</p></div>
+    <div class="card"><b>In-memory index</b><p>Five runbooks → 18 chunks → a 18×3072 matrix. Rebuilt lazily on the first query per Cloud Run instance; no database to run or pay for.</p></div>
     <div class="card"><b>When to graduate</b><p>Hundreds of documents, multiple tenants or fresh updates every minute: move to Vertex AI RAG Engine or BigQuery vector search and add re-ranking.</p></div>
   </div>
 </div></section>
@@ -218,10 +218,10 @@
   <div class="tbl"><table>
     <thead><tr><th>Control</th><th>Implementation</th><th>Verified by</th></tr></thead>
     <tbody>
-      <tr><td>Private service</td><td>No <code>allUsers</code> / <code>allAuthenticatedUsers</code> invoker on Cloud Run.</td><td><code>curl</code> without a token Ã¢â€ â€™ <b>403</b>; <code>gcloud run services get-iam-policy</code> is empty.</td></tr>
-      <tr><td>Keyless identity</td><td>Runtime SA <code>sa-ops-agent</code> attached to the service; ADC locally; <code>sa-build</code> in Cloud Build.</td><td><code>gcloud iam service-accounts keys list --managed-by=user</code> Ã¢â€ â€™ 0 items.</td></tr>
+      <tr><td>Private service</td><td>No <code>allUsers</code> / <code>allAuthenticatedUsers</code> invoker on Cloud Run.</td><td><code>curl</code> without a token → <b>403</b>; <code>gcloud run services get-iam-policy</code> is empty.</td></tr>
+      <tr><td>Keyless identity</td><td>Runtime SA <code>sa-ops-agent</code> attached to the service; ADC locally; <code>sa-build</code> in Cloud Build.</td><td><code>gcloud iam service-accounts keys list --managed-by=user</code> → 0 items.</td></tr>
       <tr><td>Least privilege</td><td><code>roles/aiplatform.user</code>, <code>roles/datastore.user</code> at project level; <code>roles/storage.objectViewer</code> on the bucket only.</td><td><code>gcloud projects get-iam-policy</code> filtered by member.</td></tr>
-      <tr><td>Private data</td><td>Bucket: uniform bucket-level access, public access prevention enforced.</td><td>Terraform config; console shows Ã¢â‚¬Å“Public access: PreventedÃ¢â‚¬Â.</td></tr>
+      <tr><td>Private data</td><td>Bucket: uniform bucket-level access, public access prevention enforced.</td><td>Terraform config; console shows “Public access: Prevented”.</td></tr>
       <tr><td>Hardened container</td><td>Non-root user, pinned dependencies, no secrets in the image.</td><td><code>Dockerfile</code>, <code>.dockerignore</code> excludes <code>*.json</code>/<code>.env</code>.</td></tr>
       <tr><td>Access path</td><td><code>gcloud run services proxy</code> mints an identity token for the operator; IAP is the multi-user equivalent.</td><td>Demo scene 2.</td></tr>
     </tbody>
@@ -248,7 +248,7 @@
       </g>
       <g font-size="12.5" fill="currentColor" text-anchor="middle">
         <text x="75" y="94" font-weight="600">APIs</text><text x="75" y="112">7 services</text>
-        <text x="285" y="31" font-weight="600">Service accounts</text><text x="285" y="49">sa-ops-agent Ã‚Â· sa-build</text>
+        <text x="285" y="31" font-weight="600">Service accounts</text><text x="285" y="49">sa-ops-agent · sa-build</text>
         <text x="285" y="95" font-weight="600">Bucket</text><text x="285" y="113">runbooks + 5 objects</text>
         <text x="285" y="159" font-weight="600">Firestore</text><text x="285" y="177">(default) + index</text>
         <text x="525" y="31" font-weight="600">IAM bindings</text><text x="525" y="49">project + bucket level</text>
@@ -263,7 +263,7 @@
   <h3>Repository layout</h3>
 <pre><code>app/                      container: ADK FastAPI app (main.py) + agent package
   ops_agent/agent.py      root_agent = Agent(model, instruction, tools=[...], thinking_level=low)
-  ops_agent/rag.py        load (GCS or local) Ã¢â€ â€™ chunk Ã¢â€ â€™ embed Ã¢â€ â€™ in-memory cosine search
+  ops_agent/rag.py        load (GCS or local) → chunk → embed → in-memory cosine search
   ops_agent/tickets.py    Firestore tools (validation + error surfacing)
   ops_agent/status.py     mock status tool
   test_agent.py           run the agent from the CLI with the ADK Runner
@@ -279,12 +279,12 @@ docs/                     this page, architecture diagram source + PNG</code></p
   <h2>Deploy it yourself</h2>
   <p class="sub">About 10 minutes on a fresh project. Idle cost is zero (Cloud Run scales to zero; Firestore and GCS stay in the free tier).</p>
   <ol class="steps">
-    <li><b>Prerequisites</b>gcloud, Terraform Ã¢â€°Â¥ 1.6, Python 3.12, a GCP project with billing. <code>gcloud auth login &amp;&amp; gcloud auth application-default login</code>.</li>
+    <li><b>Prerequisites</b>gcloud, Terraform ≥ 1.6, Python 3.12, a GCP project with billing. <code>gcloud auth login &amp;&amp; gcloud auth application-default login</code>.</li>
     <li><b>Configure</b><code>cp terraform/terraform.tfvars.example terraform/terraform.tfvars</code> and set <code>project_id</code>. Models default to <code>gemini-3.8-flash</code> (location <code>global</code>) and <code>gemini-embedding-001</code>.</li>
     <li><b>Deploy</b><code>./deploy.sh v1</code>: phase 1 creates the registry, build account and Firestore; Cloud Build pushes the image; phase 2 creates the bucket, runtime SA, IAM and the Cloud Run service.</li>
     <li><b>Open the UI</b><code>gcloud run services proxy ops-agent --region us-central1 --port 8080</code>, then browse <code>http://localhost:8080/dev-ui/</code>. The proxy injects your identity token; the service itself stays private.</li>
-    <li><b>Try it</b>Ã¢â‚¬Å“CouchDB crashed on prod after a reboot, what are the recovery steps?Ã¢â‚¬Â Ã¢â€ â€™ Ã¢â‚¬Å“Open a P1 ticket for this.Ã¢â‚¬Â Ã¢â€ â€™ Ã¢â‚¬Å“List open tickets.Ã¢â‚¬Â</li>
-    <li><b>Run locally instead</b><code>pip install -r app/requirements.txt</code>, export <code>GOOGLE_GENAI_USE_VERTEXAI=TRUE GOOGLE_CLOUD_PROJECT=Ã¢â‚¬Â¦ GOOGLE_CLOUD_LOCATION=global</code>, then <code>cd app &amp;&amp; adk web</code>. Without <code>RUNBOOKS_BUCKET</code> the runbooks are read from disk.</li>
+    <li><b>Try it</b>“CouchDB crashed on prod after a reboot, what are the recovery steps?” → “Open a P1 ticket for this.” → “List open tickets.”</li>
+    <li><b>Run locally instead</b><code>pip install -r app/requirements.txt</code>, export <code>GOOGLE_GENAI_USE_VERTEXAI=TRUE GOOGLE_CLOUD_PROJECT=… GOOGLE_CLOUD_LOCATION=global</code>, then <code>cd app &amp;&amp; adk web</code>. Without <code>RUNBOOKS_BUCKET</code> the runbooks are read from disk.</li>
     <li><b>Clean up</b><code>terraform -chdir=terraform destroy</code> removes all 26 resources.</li>
   </ol>
 </div></section>
@@ -295,15 +295,15 @@ docs/                     this page, architecture diagram source + PNG</code></p
   <div class="grid">
     <div class="card"><b>Gemini 3.x lives in <code>global</code></b><p>Every <code>gemini-3.*</code> model returned 404 from <code>us-central1</code>; the SDK must target the <code>global</code> location. Embeddings and the rest of the stack stay regional.</p></div>
     <div class="card"><b>Batched embeddings can lie</b><p>On Vertex AI, <code>gemini-embedding-2</code> returned one vector for a 20-text batch. The index silently collapsed to one chunk and every query matched the same runbook. <code>rag.py</code> now asserts <code>len(vectors) == len(texts)</code>.</p></div>
-    <div class="card"><b>Thinking costs seconds</b><p>Gemini 3.8 Flash with default thinking took 30-100 s per tool round; <code>thinking_level=low</code> brings a full search Ã¢â€ â€™ read Ã¢â€ â€™ answer turn to about 10 s with no loss in tool accuracy.</p></div>
+    <div class="card"><b>Thinking costs seconds</b><p>Gemini 3.8 Flash with default thinking took 30-100 s per tool round; <code>thinking_level=low</code> brings a full search → read → answer turn to about 10 s with no loss in tool accuracy.</p></div>
     <div class="card"><b>Give the model a way to read, not just search</b><p>Chunk retrieval alone made the model search ten times to rebuild one procedure. A second tool that returns the whole document cut turns from 90 s to 2 tool calls.</p></div>
     <div class="card"><b>New orgs block the default build account</b><p>Cloud Build's default service account had no permissions under the org policies; a dedicated <code>sa-build</code> with three roles and <code>CLOUD_LOGGING_ONLY</code> fixed it cleanly.</p></div>
-    <div class="card"><b>Tools must not throw</b><p>A missing Firestore index crashed the whole turn. Tools now catch backend errors and return <code>{"error": Ã¢â‚¬Â¦}</code> so the agent can explain instead of dying.</p></div>
+    <div class="card"><b>Tools must not throw</b><p>A missing Firestore index crashed the whole turn. Tools now catch backend errors and return <code>{"error": …}</code> so the agent can explain instead of dying.</p></div>
   </div>
 </div></section>
 
 <footer><div class="wrap">
-  Built by Bhavishya Jain Ã‚Â· <a href="https://github.com/bhavishyajain545/gcp-gemini-rag-agent">github.com/bhavishyajain545/gcp-gemini-rag-agent</a> Ã‚Â· Part of a three-project Google Cloud portfolio (GKE platform, Data + AI pipeline).
+  Built by Bhavishya Jain · <a href="https://github.com/bhavishyajain545/gcp-gemini-rag-agent">github.com/bhavishyajain545/gcp-gemini-rag-agent</a> · Part of a three-project Google Cloud portfolio (GKE platform, Data + AI pipeline).
 </div></footer>
 </body>
 </html>
