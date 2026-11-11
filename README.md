@@ -86,7 +86,7 @@ gcloud run services proxy ops-agent --region us-central1 --port 8080   # open ht
 Cloud Run scales to zero; Gemini Flash + embeddings for a demo cost a few rupees; Firestore and GCS stay in the free tier.
 
 ```bash
-terraform -chdir=terraform destroy
+./teardown.sh        # terraform destroy + report of anything left; ./audit-billing.sh lists everything billable
 ```
 
 ## Design notes (interview talking points)

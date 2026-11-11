@@ -92,7 +92,8 @@ Review the result frame-by-frame before publishing (`ffmpeg -ss <t> -i demo/demo
 ## 5. Tear down (stop all cost)
 
 ```bash
-terraform -chdir=terraform destroy -auto-approve     # bucket force_destroy, Firestore deletion_policy=DELETE, AR repo
+./teardown.sh            # terraform destroy (bucket force_destroy, Firestore deletion_policy=DELETE, AR repo, Cloud Run) + leftover report
+./audit-billing.sh       # lists anything that could still bill in the project; every section should be empty
 gcloud projects delete "$PROJECT_ID"                 # optional; IDs cannot be reused afterwards
 ```
 
